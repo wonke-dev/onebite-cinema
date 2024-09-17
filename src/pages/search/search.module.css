@@ -1,0 +1,16 @@
+.container {
+  max-width: 800px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5%;
+}
+.container a {
+  width: 32.5%;
+  margin-bottom: 5px;
+}
+
+.container a > img {
+  width: 100%;
+}
