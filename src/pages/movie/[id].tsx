@@ -8,6 +8,7 @@ import {
 } from "next";
 import fetchMovies from "@/lib/fetch-movies";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 export const getStaticPaths = async () => {
   const movies = await fetchMovies();
@@ -54,20 +55,28 @@ export default function Page({
     posterImgUrl,
   } = movie;
   return (
-    <div className={style.container}>
-      <div
-        className={style.cover_img}
-        style={{ backgroundImage: `url('${posterImgUrl}')` }}
-      >
-        <img src={posterImgUrl} />
+    <>
+      <Head>
+        <title>{title}</title>
+        <meta property="og:image" content={posterImgUrl} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+      </Head>
+      <div className={style.container}>
+        <div
+          className={style.cover_img}
+          style={{ backgroundImage: `url('${posterImgUrl}')` }}
+        >
+          <img src={posterImgUrl} />
+        </div>
+        <div className={style.title}>{title}</div>
+        <div className={style.info}>
+          {releaseDate} / {genres.join(", ")} / {runtime}분
+        </div>
+        <div className={style.company}>{company}</div>
+        <div className={style.subTitle}>{subTitle}</div>
+        <div className={description}>{description}</div>
       </div>
-      <div className={style.title}>{title}</div>
-      <div className={style.info}>
-        {releaseDate} / {genres.join(", ")} / {runtime}분
-      </div>
-      <div className={style.company}>{company}</div>
-      <div className={style.subTitle}>{subTitle}</div>
-      <div className={description}>{description}</div>
-    </div>
+    </>
   );
 }
