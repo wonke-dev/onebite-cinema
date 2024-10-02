@@ -1,5 +1,7 @@
 "use client";
 
+import style from "./searchbar.module.css";
+
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -30,7 +32,7 @@ export default function Searchbar() {
   };
 
   return (
-    <div>
+    <div className={style.searchbar_container}>
       <input
         value={search}
         onChange={onChangeSearch}
