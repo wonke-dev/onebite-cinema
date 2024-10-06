@@ -2,7 +2,7 @@ import { MovieData } from "@/types";
 import style from "./page.module.css";
 import { notFound } from "next/navigation";
 
-export const dynamicParams = false;
+// export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const response = await fetch(
