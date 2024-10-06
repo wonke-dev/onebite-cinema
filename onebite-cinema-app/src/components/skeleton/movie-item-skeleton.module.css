@@ -1,0 +1,15 @@
+.cover_img {
+  width: 100%;
+  margin-bottom: 10px;
+  background-color: #ddd;
+}
+
+.cover_img.col-3 {
+  width: 32.5%;
+  height: 365px;
+}
+
+.cover_img.col-5 {
+  width: 19%;
+  height: 214px;
+}
