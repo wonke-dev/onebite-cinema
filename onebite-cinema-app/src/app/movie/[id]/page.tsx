@@ -1,25 +1,13 @@
 import { MovieData } from "@/types";
 import style from "./page.module.css";
 import { notFound } from "next/navigation";
+import { createReviewAction } from "@/actions/create-review-action";
 
 // export const dynamicParams = false;
 
-export async function generateStaticParams() {
+async function MovieDetail({ movieId }: { movieId: string }) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/movie`
-  );
-
-  const movies: MovieData[] = await response.json();
-  return movies.map(({ id }) => ({ id: id.toString() }));
-}
-
-export default async function Page({
-  params,
-}: {
-  params: { id: string | string[] };
-}) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/movie/${params.id}`,
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/movie/${movieId}`,
     { cache: "force-cache" }
   );
   if (!response.ok) {
@@ -44,22 +32,51 @@ export default async function Page({
   } = movie;
 
   return (
-    <div>
-      <div className={style.container}>
-        <div
-          className={style.cover_img}
-          style={{ backgroundImage: `url('${posterImgUrl}')` }}
-        >
-          <img src={posterImgUrl} />
-        </div>
-        <div className={style.title}>{title}</div>
-        <div className={style.info}>
-          {releaseDate} / {genres.join(", ")} / {runtime}분
-        </div>
-        <div className={style.company}>{company}</div>
-        <div className={style.subTitle}>{subTitle}</div>
-        <div className={description}>{description}</div>
+    <section>
+      <div
+        className={style.cover_img}
+        style={{ backgroundImage: `url('${posterImgUrl}')` }}
+      >
+        <img src={posterImgUrl} />
       </div>
+      <div className={style.title}>{title}</div>
+      <div className={style.info}>
+        {releaseDate} / {genres.join(", ")} / {runtime}분
+      </div>
+      <div className={style.company}>{company}</div>
+      <div className={style.subTitle}>{subTitle}</div>
+      <div className={description}>{description}</div>
+    </section>
+  );
+}
+
+function ReviewEditor({ movieId }: { movieId: string }) {
+  return (
+    <section>
+      <form action={createReviewAction}>
+        <input name="movieId" value={movieId} hidden />
+        <input required name="content" placeholder="리뷰 내용" />
+        <input required name="author" placeholder="작성자" />
+        <button type="submit">작성하기</button>
+      </form>
+    </section>
+  );
+}
+
+export async function generateStaticParams() {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/movie`
+  );
+
+  const movies: MovieData[] = await response.json();
+  return movies.map(({ id }) => ({ id: id.toString() }));
+}
+
+export default function Page({ params }: { params: { id: string } }) {
+  return (
+    <div className={style.container}>
+      <MovieDetail movieId={params.id} />
+      <ReviewEditor movieId={params.id} />
     </div>
   );
 }
