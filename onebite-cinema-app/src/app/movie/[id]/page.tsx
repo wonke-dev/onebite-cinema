@@ -10,7 +10,7 @@ import ReviewItem from "@/components/review-item";
 async function MovieDetail({ movieId }: { movieId: string }) {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_SERVER_URL}/movie/${movieId}`,
-    { cache: "force-cache" }
+    { next: { tags: [`review-${movieId}`] } }
   );
   if (!response.ok) {
     if (response.status === 404) {

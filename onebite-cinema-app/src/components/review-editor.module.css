@@ -41,4 +41,6 @@
   width: 100px;
   border-radius: 5px;
   box-sizing: border-box;
+  background-color: #fff;
+  color: #000;
 }

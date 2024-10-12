@@ -27,7 +27,9 @@
 }
 
 .container .delete_btn {
+  width: fit-content;
   font-size: 14px;
   color: gray;
   letter-spacing: -0.05rem;
+  cursor: pointer;
 }
