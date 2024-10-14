@@ -5,6 +5,9 @@ const nextConfig = {
       fullUrl: true,
     },
   },
+  images: {
+    remotePatterns: [{ hostname: "media.themoviedb.org" }],
+  },
 };
 
 export default nextConfig;
