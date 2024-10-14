@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "한입 씨네마",
     description: "한입 씨네마에 등록한 영화를 만나보세요",
-    images: ["/thumnail.png"],
+    images: ["/thumbnail.png"],
   },
 };
 
